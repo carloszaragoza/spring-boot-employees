@@ -21,15 +21,20 @@ import com.optimissa.empleados.business.service.EmpleadosService;
 import com.optimissa.empleados.data.dto.EmpleadoDTO;
 import com.optimissa.empleados.data.entity.Empleado;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController
 @RequestMapping(value="/v1/empleados")
+@Api(value="employee", description="Data service operations on employees", tags = "employee")
 public class EmpleadoServiceController {
 
 	@Autowired
 	private EmpleadosService service;
 	
 	@RequestMapping(method = RequestMethod.GET)
+	@ApiOperation(value="Get employees depending onthe parameters that are received", nickname="getEmployees")
 	List<Empleado> findAllEmpleados(@RequestParam(required = false) String name, @RequestParam(required = false) String sname, @RequestParam(required = false) String sort){
 		List<Empleado> empleados = new ArrayList<Empleado>();
 		
@@ -70,6 +75,7 @@ public class EmpleadoServiceController {
 	
 	
 	@RequestMapping(value="/{rfc}", method = RequestMethod.GET)
+	@ApiOperation(value="Get a employee by rfc", nickname="getEmployeeByRFC")
 	public Empleado searchEmpleadoByName(@PathVariable("rfc") String rfc){
 		Empleado empleado = null;
 		if(null != rfc) {
@@ -79,6 +85,7 @@ public class EmpleadoServiceController {
 	}
 	
 	@RequestMapping(value="/searchName", method = RequestMethod.GET)
+	@ApiOperation(value="Search employee by name and sort", nickname="searchEmployeeByNameAndSort")
 	public Page<Empleado> searchEmpleadoByNameSort(@RequestParam("name") String name, Pageable pageable){
 		Page<Empleado> empleados = null;
 		
@@ -94,6 +101,7 @@ public class EmpleadoServiceController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation(value="Create employee", nickname="createEmployee")
 	public void createEmployee(@RequestBody EmpleadoDTO empleadoDTO) {
 		if(null == service.findByRFC(empleadoDTO.getRfc())) {
 			service.saveEmployee(new Empleado(empleadoDTO.getNombre(), empleadoDTO.getApellidoPaterno(), empleadoDTO.getApellidoMaterno(), empleadoDTO.getRfc(), empleadoDTO.getCurp()));
@@ -102,6 +110,7 @@ public class EmpleadoServiceController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value="Update Employee", nickname="updateEmployee")
 	public Empleado updateEmployee(@PathVariable String id, @RequestBody EmpleadoDTO empleadoDTO) {
 		Empleado empleado = service.findById(id);
 		if(null != empleado) {
@@ -117,6 +126,7 @@ public class EmpleadoServiceController {
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation(value="Delete Employee", nickname="deleteEmployee")
 	public void deleteEmployee(@PathVariable String id) {
 		service.deleteEmployee(id);
 	}

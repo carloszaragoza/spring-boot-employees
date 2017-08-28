@@ -1,4 +1,4 @@
-package com.optimissa.empleados.data.entity;
+package com.optimissa.empleados.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,21 +8,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="employee")
+@Table(name="Empleado")
 public class Empleado {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_employee")
+	@Column(name="id_empleado")
 	private long id;
 	
-	@Column(name="name")
+	@Column(name="nombre")
 	private String nombre;
 	
-	@Column(name="last_name")
+	@Column(name="apellido_paterno")
 	private String apellidoPaterno;
 	
-	@Column(name="mother_last_name")
+	@Column(name="apellido_materno")
 	private String apellidoMaterno;
 	
 	@Column(name="rfc")
@@ -42,14 +42,6 @@ public class Empleado {
 		this.apellidoMaterno = apellidoMaterno;
 		this.rfc = rfc;
 		this.curp = curp;
-	}
-	
-	
-
-	@Override
-	public String toString() {
-		return "Empleado [id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno
-				+ ", apellidoMaterno=" + apellidoMaterno + ", rfc=" + rfc + ", curp=" + curp + "]";
 	}
 
 	public long getId() {

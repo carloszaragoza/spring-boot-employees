@@ -1,8 +1,0 @@
-CREATE TABLE Empleado(
-  id_empleado BIGINT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(120) NOT NULL,
-  apellido_paterno VARCHAR(120) NOT NULL,
-  apellido_materno VARCHAR(120) NOT NULL,
-  rfc VARCHAR(13) NOT NULL,
-  curp VARCHAR(18) NOT NULL
-);
